@@ -1,367 +1,3836 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech & Code - Blog de Tecnologia e Programação</title>
-    <!-- Fonte Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-    
+
+    <meta name="description"
+        content="TechNova — Blog de tecnologia, inteligência artificial, programação, inovação e futuro.">
+
+    <title>TechNova — Tecnologia, Inovação e Futuro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* Variáveis de Estilo (Tema Escuro por Padrão) */
+
+        /* =====================================================
+           VARIÁVEIS
+        ===================================================== */
+
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --primary-color: #38bdf8;
-            --primary-hover: #0284c7;
-            --border-color: #334155;
-            --font-main: 'Inter', sans-serif;
-            --font-code: 'Fira Code', monospace;
+            --bg: #07090f;
+            --surface: #0d1119;
+            --surface-light: #131925;
+            --text: #f5f7fb;
+            --muted: #9ba3b4;
+            --border: rgba(255,255,255,.09);
+
+            --blue: #38bdf8;
+            --purple: #8b5cf6;
+            --cyan: #22d3ee;
+            --green: #34d399;
+            --orange: #fb923c;
+            --pink: #f472b6;
+
+            --gradient:
+                linear-gradient(
+                    135deg,
+                    #38bdf8,
+                    #6366f1,
+                    #a855f7
+                );
+
+            --container: 1180px;
         }
 
-        /* Tema Claro */
-        [data-theme="light"] {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #0f172a;
-            --text-muted: #64748b;
-            --primary-color: #0284c7;
-            --primary-hover: #0369a1;
-            --border-color: #e2e8f0;
-        }
+
+        /* =====================================================
+           RESET
+        ===================================================== */
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
+            transition: .3s;
+        }
+
+        body.light {
+            --bg: #f5f7fb;
+            --surface: #ffffff;
+            --surface-light: #eef1f7;
+            --text: #111827;
+            --muted: #667085;
+            --border: rgba(15,23,42,.1);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
         }
 
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
+            width: min(
+                calc(100% - 40px),
+                var(--container)
+            );
+
+            margin: auto;
         }
 
-        /* Navbar */
-        .navbar {
-            border-bottom: 1px solid var(--border-color);
-            padding: 20px 0;
-            position: sticky;
+        .section {
+            padding: 110px 0;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+            position: fixed;
             top: 0;
-            background-color: var(--bg-color);
-            z-index: 100;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            border-bottom:
+                1px solid var(--border);
+
+            background:
+                rgba(7,9,15,.78);
+
+            backdrop-filter: blur(20px);
+
+            transition: .3s;
         }
 
-        .nav-container {
+        body.light .header {
+            background:
+                rgba(245,247,251,.82);
+        }
+
+        .nav {
+            min-height: 76px;
+
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            font-family: var(--font-code);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--text-color);
-        }
-
-        .nav-links {
             display: flex;
-            list-style: none;
             align-items: center;
-            gap: 20px;
+            gap: 10px;
+
+            font-family: "Space Grotesk";
+            font-size: 1.25rem;
+            font-weight: 700;
         }
 
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
+        .logo-symbol {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 10px;
+
+            background: var(--gradient);
+            color: white;
+
+            font-family: monospace;
+            font-size: .8rem;
         }
 
-        .nav-links a:hover {
-            color: var(--primary-color);
+        .logo span:last-child span {
+            color: var(--blue);
         }
 
-        #theme-toggle {
-            background: none;
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: var(--muted);
+            font-size: .84rem;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--text);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-button,
+        .mobile-button {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background: var(--surface);
+            color: var(--text);
+
             font-size: 1rem;
-            color: var(--text-color);
         }
 
-        /* Hero Section */
+        .mobile-button {
+            display: none;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
         .hero {
-            padding: 80px 0 40px 0;
-            text-align: center;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 110px;
+
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 700px;
+            height: 700px;
+
+            right: -250px;
+            top: -200px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(56,189,248,.14),
+                    transparent 65%
+                );
+        }
+
+        .hero-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 8px 13px;
+
+            border:
+                1px solid
+                rgba(56,189,248,.25);
+
+            border-radius: 100px;
+
+            color: var(--blue);
+
+            background:
+                rgba(56,189,248,.07);
+
+            font-size: .65rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+        }
+
+        .pulse {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 0 5px
+                rgba(52,211,153,.12);
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,100% {
+                box-shadow:
+                    0 0 0 3px
+                    rgba(52,211,153,.15);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 0 8px
+                    rgba(52,211,153,.03);
+            }
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            margin-top: 25px;
+
+            font-family: "Space Grotesk";
+
+            font-size:
+                clamp(3.5rem, 7vw, 6.4rem);
+
+            line-height: .94;
+
+            letter-spacing: -.07em;
         }
 
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
+        .hero h1 span {
+            display: block;
+
+            background: var(--gradient);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
         }
 
-        /* Filtros */
-        .categories {
+        .hero-description {
+            max-width: 610px;
+
+            margin-top: 30px;
+
+            color: var(--muted);
+
+            font-size: 1rem;
+
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 40px;
+            gap: 12px;
+
+            margin-top: 35px;
+        }
+
+        .button {
+            min-height: 52px;
+
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            gap: 10px;
+
+            padding: 0 22px;
+
+            border-radius: 14px;
+
+            font-size: .8rem;
+            font-weight: 800;
+
+            transition: .25s;
         }
 
-        .filter-btn {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
+        .button:hover {
+            transform: translateY(-3px);
         }
 
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            border-color: var(--primary-color);
+        .button-primary {
+            background: var(--gradient);
+            color: white;
+
+            box-shadow:
+                0 15px 40px
+                rgba(99,102,241,.22);
         }
 
-        /* Grid de Posts */
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+        .button-outline {
+            border:
+                1px solid var(--border);
+
+            background: var(--surface);
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
+        .hero-numbers {
+            display: flex;
+            gap: 45px;
+
+            margin-top: 50px;
+        }
+
+        .hero-numbers div {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            transition: transform 0.2s ease;
+        .hero-numbers strong {
+            font-family: "Space Grotesk";
+            font-size: 1.5rem;
         }
 
-        .card-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
+        .hero-numbers span {
+            color: var(--muted);
+            font-size: .7rem;
+        }
+
+
+        /* =====================================================
+           VISUAL
+        ===================================================== */
+
+        .tech-visual {
+            min-height: 540px;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+
+            transition: transform .2s ease;
+        }
+
+        .grid-background {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            background-image:
+                linear-gradient(
+                    rgba(56,189,248,.08) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56,189,248,.08) 1px,
+                    transparent 1px
+                );
+
+            background-size: 40px 40px;
+
+            mask-image:
+                radial-gradient(
+                    circle,
+                    black 30%,
+                    transparent 70%
+                );
+        }
+
+        .orbit {
+            position: absolute;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(56,189,248,.2);
+        }
+
+        .orbit-one {
+            width: 350px;
+            height: 170px;
+
+            transform: rotate(-20deg);
+        }
+
+        .orbit-two {
+            width: 480px;
+            height: 220px;
+
+            transform: rotate(30deg);
+        }
+
+        .core {
+            width: 190px;
+            height: 190px;
+
+            position: relative;
+            z-index: 3;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(56,189,248,.4);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(56,189,248,.2),
+                    transparent 60%
+                );
+
+            box-shadow:
+                0 0 50px
+                rgba(56,189,248,.25);
+
+            animation:
+                floating 5s ease-in-out infinite;
+        }
+
+        .core-inner {
+            width: 100px;
+            height: 100px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 28px;
+
+            background: var(--gradient);
+
+            color: white;
+
+            font-family: monospace;
+            font-size: 1.6rem;
+            font-weight: 800;
+
+            box-shadow:
+                0 0 50px
+                rgba(56,189,248,.35);
+        }
+
+        @keyframes floating {
+
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        .floating-tech {
+            position: absolute;
+
+            z-index: 5;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 13px 16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(13,17,25,.8);
+
+            backdrop-filter: blur(15px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0,0,0,.3);
+
+            animation:
+                floating 4s ease-in-out infinite;
+        }
+
+        body.light .floating-tech {
+            background:
+                rgba(255,255,255,.85);
+        }
+
+        .floating-tech span {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(56,189,248,.1);
+
+            color: var(--blue);
+
+            font-size: .7rem;
+            font-weight: 800;
+        }
+
+        .floating-tech strong {
+            font-size: .7rem;
+        }
+
+        .tech-ai {
+            left: 0;
+            top: 70px;
+        }
+
+        .tech-code {
+            right: 0;
+            top: 100px;
+            animation-delay: -1s;
+        }
+
+        .tech-cloud {
+            left: 30px;
+            bottom: 70px;
+            animation-delay: -2s;
+        }
+
+        .tech-data {
+            right: 0;
+            bottom: 100px;
+            animation-delay: -3s;
+        }
+
+
+        /* =====================================================
+           CATEGORIAS
+        ===================================================== */
+
+        .category-bar {
+            border-top:
+                1px solid var(--border);
+
+            border-bottom:
+                1px solid var(--border);
+
+            background: var(--surface);
+        }
+
+        .category-scroll {
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            flex-shrink: 0;
+
+            padding: 9px 15px;
+
+            border-radius: 100px;
+
+            color: var(--muted);
+
+            font-size: .73rem;
             font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 10px;
         }
 
-        .card-content h2 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+        .category.active,
+        .category:hover {
+            background:
+                rgba(56,189,248,.1);
+
+            color: var(--blue);
         }
 
-        .meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
+
+        /* =====================================================
+           TÍTULOS
+        ===================================================== */
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+
+            gap: 40px;
+
+            margin-bottom: 50px;
         }
 
-        .description {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+        .section-label {
+            display: inline-block;
+
+            margin-bottom: 14px;
+
+            color: var(--blue);
+
+            font-size: .65rem;
+            font-weight: 800;
+
+            letter-spacing: .15em;
+        }
+
+        .section-heading h2 {
+            max-width: 700px;
+
+            font-family: "Space Grotesk";
+
+            font-size:
+                clamp(2.2rem, 4vw, 3.8rem);
+
+            line-height: 1;
+
+            letter-spacing: -.055em;
+        }
+
+        .section-heading > p {
+            max-width: 390px;
+
+            color: var(--muted);
+
+            font-size: .85rem;
+        }
+
+
+        /* =====================================================
+           ARTIGO DESTAQUE
+        ===================================================== */
+
+        .featured-card {
+            display: grid;
+
+            grid-template-columns:
+                1.05fr .95fr;
+
+            overflow: hidden;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 28px;
+
+            background: var(--surface);
+
+            box-shadow:
+                0 30px 80px
+                rgba(0,0,0,.3);
+        }
+
+        .featured-image {
+            min-height: 470px;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(56,189,248,.2),
+                    transparent 40%
+                ),
+                linear-gradient(
+                    135deg,
+                    #081c2d,
+                    #10142d,
+                    #20113b
+                );
+        }
+
+        .image-label {
+            position: absolute;
+
+            left: 22px;
+            top: 22px;
+
+            padding: 7px 11px;
+
+            border-radius: 100px;
+
+            background:
+                rgba(0,0,0,.25);
+
+            color: white;
+
+            font-size: .6rem;
+            font-weight: 800;
+        }
+
+        .ai-visual {
+            width: 300px;
+            height: 300px;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .ai-circle {
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(56,189,248,.5);
+
+            box-shadow:
+                0 0 60px
+                rgba(56,189,248,.25);
+
+            animation:
+                rotate 12s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ai-text {
+            position: absolute;
+
+            font-family: "Space Grotesk";
+
+            font-size: 4rem;
+            font-weight: 800;
+
+            background: var(--gradient);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+        }
+
+        .ai-node {
+            position: absolute;
+
+            width: 13px;
+            height: 13px;
+
+            border-radius: 50%;
+
+            background: var(--blue);
+
+            box-shadow:
+                0 0 20px var(--blue);
+        }
+
+        .node-1 {
+            top: 40px;
+            left: 80px;
+        }
+
+        .node-2 {
+            right: 35px;
+            top: 120px;
+        }
+
+        .node-3 {
+            right: 90px;
+            bottom: 40px;
+        }
+
+        .node-4 {
+            left: 40px;
+            bottom: 75px;
+        }
+
+        .node-5 {
+            left: 20px;
+            top: 100px;
+        }
+
+        .featured-content {
+            padding: 60px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 8px;
+
+            margin-bottom: 18px;
+
+            color: #687184;
+
+            font-size: .63rem;
+            font-weight: 700;
+        }
+
+        .featured-content h3 {
+            font-family: "Space Grotesk";
+
+            font-size:
+                clamp(2rem,4vw,3.2rem);
+
+            line-height: 1.05;
+
+            letter-spacing: -.05em;
+        }
+
+        .featured-content p {
+            margin-top: 20px;
+
+            color: var(--muted);
+
+            font-size: .87rem;
+
+            line-height: 1.8;
         }
 
         .read-more {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
+            display: inline-block;
+
+            margin-top: 28px;
+
+            color: var(--blue);
+
+            font-size: .8rem;
+            font-weight: 800;
         }
 
-        .read-more:hover {
-            color: var(--primary-hover);
+
+        /* =====================================================
+           ARTIGOS
+        ===================================================== */
+
+        .articles {
+            background:
+                radial-gradient(
+                    circle at 90% 40%,
+                    rgba(99,102,241,.06),
+                    transparent 35%
+                );
         }
 
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 30px 0;
+        .articles-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 20px;
+        }
+
+        .article-card {
+            overflow: hidden;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 22px;
+
+            background: var(--surface);
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            transition:
+                .5s,
+                transform .3s;
+        }
+
+        .article-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card:hover {
+            transform:
+                translateY(-7px);
+        }
+
+        .article-cover {
+            height: 210px;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .cover-blue {
+            background:
+                radial-gradient(
+                    circle,
+                    #0ea5e9,
+                    transparent 30%
+                ),
+                #082f49;
+        }
+
+        .cover-purple {
+            background:
+                radial-gradient(
+                    circle,
+                    #8b5cf6,
+                    transparent 30%
+                ),
+                #241044;
+        }
+
+        .cover-green {
+            background:
+                radial-gradient(
+                    circle,
+                    #10b981,
+                    transparent 30%
+                ),
+                #052e25;
+        }
+
+        .cover-orange {
+            background:
+                radial-gradient(
+                    circle,
+                    #f97316,
+                    transparent 30%
+                ),
+                #431407;
+        }
+
+        .cover-cyan {
+            background:
+                radial-gradient(
+                    circle,
+                    #06b6d4,
+                    transparent 30%
+                ),
+                #083344;
+        }
+
+        .cover-pink {
+            background:
+                radial-gradient(
+                    circle,
+                    #ec4899,
+                    transparent 30%
+                ),
+                #500724;
+        }
+
+        .cover-category {
+            position: absolute;
+
+            top: 16px;
+            left: 16px;
+
+            padding: 6px 9px;
+
+            border-radius: 100px;
+
+            background:
+                rgba(0,0,0,.25);
+
+            color: white;
+
+            font-size: .56rem;
+            font-weight: 800;
+        }
+
+        .cover-code {
+            font-family: monospace;
+
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .cover-symbol {
+            position: absolute;
+
+            right: 18px;
+            bottom: 15px;
+
+            color:
+                rgba(255,255,255,.35);
+
+            font-size: .65rem;
+            font-weight: 800;
+        }
+
+        .chip {
+            width: 100px;
+            height: 100px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 7px;
+
+            padding: 13px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a78bfa,
+                    #6d28d9
+                );
+        }
+
+        .chip span {
+            background:
+                rgba(255,255,255,.18);
+
+            border-radius: 5px;
+        }
+
+        .big-icon {
+            font-size: 5rem;
+
+            color:
+                rgba(255,255,255,.85);
+        }
+
+        .article-body {
+            padding: 26px;
+        }
+
+        .article-body h3 {
+            font-family: "Space Grotesk";
+
+            font-size: 1.22rem;
+
+            line-height: 1.2;
+        }
+
+        .article-body p {
+            margin-top: 12px;
+
+            color: var(--muted);
+
+            font-size: .8rem;
+
+            line-height: 1.7;
+        }
+
+        .article-body a {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            color: var(--blue);
+
+            font-size: .75rem;
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           TENDÊNCIAS
+        ===================================================== */
+
+        .trends {
+            background: var(--surface);
+        }
+
+        .centered {
+            display: block;
             text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
+
+        .centered h2 {
+            margin: auto;
+        }
+
+        .centered p {
+            margin: 18px auto 0;
+        }
+
+        .trend-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap: 16px;
+        }
+
+        .trend-card {
+            position: relative;
+
+            padding: 28px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--bg);
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            transition: .6s;
+        }
+
+        .trend-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .trend-number {
+            position: absolute;
+
+            right: 18px;
+            top: 15px;
+
+            color: #333a48;
+
+            font-family: "Space Grotesk";
+
+            font-size: 2.4rem;
+            font-weight: 700;
+        }
+
+        .trend-icon {
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 28px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(56,189,248,.1);
+
+            color: var(--blue);
+
+            font-family: "Space Grotesk";
+            font-weight: 800;
+        }
+
+        .trend-card h3 {
+            font-family: "Space Grotesk";
+            font-size: 1.1rem;
+        }
+
+        .trend-card p {
+            margin-top: 9px;
+
+            color: var(--muted);
+
+            font-size: .77rem;
+
+            line-height: 1.7;
+        }
+
+        .trend-bar {
+            height: 5px;
+
+            margin-top: 22px;
+
+            overflow: hidden;
+
+            border-radius: 100px;
+
+            background: #202632;
+        }
+
+        .trend-bar span {
+            display: block;
+
+            height: 100%;
+
+            width: 0;
+
+            border-radius: inherit;
+
+            background: var(--gradient);
+
+            transition:
+                width 1.2s ease;
+        }
+
+        .trend-card small {
+            display: block;
+
+            margin-top: 8px;
+
+            color: #687184;
+
+            font-size: .6rem;
+        }
+
+
+        /* =====================================================
+           CATEGORIAS GRANDES
+        ===================================================== */
+
+        .category-cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 16px;
+        }
+
+        .big-category {
+            min-height: 180px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: end;
+
+            justify-content: space-between;
+
+            padding: 28px;
+
+            overflow: hidden;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 22px;
+
+            background: var(--surface);
+
+            transition: .3s;
+        }
+
+        .big-category:hover {
+            transform:
+                translateY(-5px);
+
+            border-color:
+                var(--color);
+        }
+
+        .big-category::before {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -80px;
+            top: -80px;
+
+            border-radius: 50%;
+
+            background: var(--color);
+
+            opacity: .12;
+
+            filter: blur(8px);
+        }
+
+        .big-category > span {
+            position: absolute;
+
+            top: 20px;
+            left: 25px;
+
+            color: #5b6473;
+
+            font-family: "Space Grotesk";
+
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .big-category div {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .big-category strong {
+            font-family: "Space Grotesk";
+            font-size: 1.3rem;
+        }
+
+        .big-category small {
+            color: var(--muted);
+            font-size: .7rem;
+        }
+
+        .big-category b {
+            position: relative;
+
+            color: var(--color);
+
+            font-size: 1.5rem;
+        }
+
+        .cat-ai {
+            --color: #8b5cf6;
+        }
+
+        .cat-code {
+            --color: #38bdf8;
+        }
+
+        .cat-security {
+            --color: #34d399;
+        }
+
+        .cat-hardware {
+            --color: #fb923c;
+        }
+
+
+        /* =====================================================
+           SOBRE
+        ===================================================== */
+
+        .about {
+            background:
+                radial-gradient(
+                    circle at 10% 50%,
+                    rgba(56,189,248,.06),
+                    transparent 35%
+                );
+        }
+
+        .about-grid {
+            display: grid;
+
+            grid-template-columns:
+                .9fr 1.1fr;
+
+            align-items: center;
+
+            gap: 100px;
+        }
+
+        .about-visual {
+            min-height: 430px;
+
+            position: relative;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .about-orbit {
+            width: 310px;
+            height: 310px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(56,189,248,.25);
+
+            animation:
+                spin 10s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .about-logo {
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 35px;
+
+            background: var(--gradient);
+
+            color: white;
+
+            font-family: monospace;
+
+            font-size: 2rem;
+            font-weight: 800;
+
+            box-shadow:
+                0 0 70px
+                rgba(56,189,248,.3);
+        }
+
+        .about-badge {
+            position: absolute;
+
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: var(--surface);
+
+            color: var(--blue);
+
+            font-size: .7rem;
+            font-weight: 800;
+        }
+
+        .badge-one {
+            top: 50px;
+            right: 80px;
+        }
+
+        .badge-two {
+            bottom: 55px;
+            left: 60px;
+        }
+
+        .badge-three {
+            left: 10px;
+            top: 190px;
+        }
+
+        .about-content h2 {
+            font-family: "Space Grotesk";
+
+            font-size:
+                clamp(2.5rem,5vw,4.4rem);
+
+            line-height: 1;
+
+            letter-spacing: -.055em;
+        }
+
+        .about-content h2 span {
+            color: var(--blue);
+        }
+
+        .about-content > p {
+            max-width: 600px;
+
+            margin-top: 20px;
+
+            color: var(--muted);
+
+            font-size: .88rem;
+
+            line-height: 1.8;
+        }
+
+        .about-list {
+            margin-top: 27px;
+        }
+
+        .about-list div {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            margin-bottom: 11px;
+        }
+
+        .about-list span {
+            width: 23px;
+            height: 23px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(52,211,153,.1);
+
+            color: var(--green);
+
+            font-size: .65rem;
+        }
+
+        .about-list p {
+            font-size: .8rem;
+        }
+
+
+        /* =====================================================
+           NEWSLETTER
+        ===================================================== */
+
+        .newsletter {
+            padding-bottom: 110px;
+        }
+
+        .newsletter-box {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            align-items: center;
+
+            gap: 60px;
+
+            padding: 60px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 28px;
+
+            background:
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(56,189,248,.14),
+                    transparent 35%
+                ),
+                var(--surface);
+        }
+
+        .newsletter h2 {
+            font-family: "Space Grotesk";
+
+            font-size:
+                clamp(2.2rem,4vw,3.5rem);
+
+            line-height: 1;
+
+            letter-spacing: -.05em;
+        }
+
+        .newsletter p {
+            margin-top: 15px;
+
+            color: var(--muted);
+        }
+
+        .newsletter-input {
+            display: flex;
+
+            gap: 6px;
+
+            padding: 6px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: var(--bg);
+        }
+
+        .newsletter-input input {
+            min-width: 0;
+            flex: 1;
+
+            padding: 0 14px;
+
+            border: 0;
+            outline: 0;
+
+            background: transparent;
+
+            color: var(--text);
+        }
+
+        .newsletter-input button {
+            padding: 13px 20px;
+
+            border-radius: 9px;
+
+            background: var(--gradient);
+
+            color: white;
+
+            font-size: .75rem;
+            font-weight: 800;
+        }
+
+        #formMessage {
+            display: block;
+
+            margin-top: 10px;
+
+            color: var(--green);
+
+            font-size: .7rem;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            padding-top: 70px;
+
+            border-top:
+                1px solid var(--border);
+
+            background: #05070b;
+        }
+
+        body.light .footer {
+            background: #e9edf5;
+        }
+
+        .footer-grid {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr 1fr;
+
+            gap: 50px;
+
+            padding-bottom: 55px;
+        }
+
+        .footer-brand p {
+            max-width: 330px;
+
+            margin-top: 18px;
+
+            color: var(--muted);
+
+            font-size: .78rem;
+        }
+
+        .footer h4 {
+            margin-bottom: 17px;
+
+            font-size: .8rem;
+        }
+
+        .footer a {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color: var(--muted);
+
+            font-size: .72rem;
+
+            transition: .2s;
+        }
+
+        .footer a:hover {
+            color: var(--text);
+        }
+
+        .footer-bottom {
+            min-height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-top:
+                1px solid var(--border);
+
+            color: #687184;
+
+            font-size: .65rem;
+        }
+
+
+        /* =====================================================
+           BOTÃO TOPO
+        ===================================================== */
+
+        .top-button {
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            width: 48px;
+            height: 48px;
+
+            z-index: 500;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+
+            background: var(--gradient);
+
+            color: white;
+
+            font-size: 1.1rem;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(15px);
+
+            transition: .3s;
+        }
+
+        .top-button.show {
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media(max-width:1000px) {
+
+            .nav-menu {
+                position: absolute;
+
+                top: 76px;
+
+                left: 15px;
+                right: 15px;
+
+                display: none;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding: 22px;
+
+                border:
+                    1px solid var(--border);
+
+                border-radius: 18px;
+
+                background: var(--surface);
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .nav-menu a {
+                padding: 9px;
+            }
+
+            .mobile-button {
+                display: grid;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .newsletter-box {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-card {
+                grid-template-columns: 1fr;
+            }
+
+            .articles-grid {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .trend-grid {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+        }
+
+
+        @media(max-width:680px) {
+
+            .container {
+                width:
+                    calc(100% - 28px);
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .hero {
+                padding-top: 120px;
+            }
+
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-numbers {
+                justify-content: space-between;
+                gap: 15px;
+            }
+
+            .tech-visual {
+                min-height: 370px;
+            }
+
+            .core {
+                width: 150px;
+                height: 150px;
+            }
+
+            .core-inner {
+                width: 80px;
+                height: 80px;
+            }
+
+            .orbit-one {
+                width: 270px;
+                height: 130px;
+            }
+
+            .orbit-two {
+                width: 350px;
+                height: 170px;
+            }
+
+            .floating-tech {
+                padding: 9px;
+            }
+
+            .floating-tech strong {
+                display: none;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading > p {
+                margin-top: 18px;
+            }
+
+            .featured-image {
+                min-height: 340px;
+            }
+
+            .featured-content {
+                padding: 35px 25px;
+            }
+
+            .articles-grid,
+            .trend-grid,
+            .category-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .about-visual {
+                min-height: 350px;
+            }
+
+            .about-orbit {
+                width: 260px;
+                height: 260px;
+            }
+
+            .newsletter-box {
+                padding: 35px 25px;
+            }
+
+            .newsletter-input {
+                flex-direction: column;
+            }
+
+            .newsletter-input input {
+                min-height: 45px;
+            }
+
+            .newsletter-input button {
+                min-height: 45px;
+            }
+
+            .footer-grid {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .footer-brand {
+                grid-column: span 2;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                justify-content: center;
+
+                gap: 5px;
+            }
+        }
+
+
+        @media(max-width:430px) {
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-numbers {
+                flex-wrap: wrap;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-brand {
+                grid-column: auto;
+            }
+        }
+
     </style>
 </head>
+
+
 <body>
 
-    <!-- Cabeçalho -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">&lt;Tech<span>&amp;Code/&gt;</span></a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#posts">Artigos</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><button id="theme-toggle" aria-label="Alternar Tema">🌙</button></li>
-                </ul>
+
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+    <header class="header" id="header">
+
+        <div class="container nav">
+
+            <a href="#inicio" class="logo">
+
+                <span class="logo-symbol">
+                    &lt;/&gt;
+                </span>
+
+                <span>
+                    Tech<span>Nova</span>
+                </span>
+
+            </a>
+
+
+            <nav class="nav-menu" id="navMenu">
+
+                <a href="#inicio">Início</a>
+
+                <a href="#artigos">Artigos</a>
+
+                <a href="#tendencias">
+                    Tendências
+                </a>
+
+                <a href="#categorias">
+                    Categorias
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
             </nav>
+
+
+            <div class="nav-actions">
+
+                <button
+                    class="theme-button"
+                    id="themeButton"
+                    aria-label="Alterar tema">
+                    ☾
+                </button>
+
+                <button
+                    class="mobile-button"
+                    id="mobileButton"
+                    aria-label="Abrir menu">
+                    ☰
+                </button>
+
+            </div>
+
         </div>
+
     </header>
 
-    <!-- Seção Principal (Hero) -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Desvendando o Universo do Código e da Tecnologia</h1>
-            <p>Artigos, tutoriais e curiosidades sobre o mundo do desenvolvimento de software.</p>
-        </div>
-    </section>
 
-    <!-- Filtros de Categoria -->
-    <section class="categories container">
-        <button class="filter-btn active" data-category="all">Todos</button>
-        <button class="filter-btn" data-category="programacao">Programação</button>
-        <button class="filter-btn" data-category="curiosidades">Curiosidades</button>
-        <button class="filter-btn" data-category="ia">Inteligência Artificial</button>
-    </section>
 
-    <!-- Grid de Artigos -->
-    <main class="container" id="posts">
-        <div class="posts-grid">
+    <!-- =====================================================
+         CONTEÚDO
+    ===================================================== -->
 
-            <!-- Artigo 1 -->
-            <article class="card" data-category="curiosidades">
-                <div class="card-tag">Curiosidades</div>
-                <div class="card-content">
-                    <h2>Por que o primeiro erro de computador foi um inseto de verdade?</h2>
-                    <p class="meta">Publicado em 24 de Agosto, 2026 • 3 min de leitura</p>
-                    <p class="description">
-                        Em 1947, a almirante e programadora Grace Hopper encontrou uma mariposa presa nos retransmissores do computador Harvard Mark II. O termo "bug" já existia, mas este evento oficializou o termo na computação.
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero" id="inicio">
+
+            <div class="container hero-grid">
+
+
+                <div>
+
+                    <div class="hero-tag">
+
+                        <span class="pulse"></span>
+
+                        O FUTURO ESTÁ ACONTECENDO AGORA
+
+                    </div>
+
+
+                    <h1>
+
+                        Tecnologia que
+
+                        <span>
+                            transforma
+                        </span>
+
+                        o mundo.
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        Informação, análises e conhecimento sobre
+                        inteligência artificial, programação,
+                        inovação, segurança digital, hardware
+                        e as tecnologias que estão moldando o futuro.
+
                     </p>
-                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
-                </div>
-            </article>
 
-            <!-- Artigo 2 -->
-            <article class="card" data-category="programacao">
-                <div class="card-tag">Programação</div>
-                <div class="card-content">
-                    <h2>O que são Algoritmos de Busca e Ordenação?</h2>
-                    <p class="meta">Publicado em 20 de Agosto, 2026 • 6 min de leitura</p>
-                    <p class="description">
-                        Entenda como funciona o QuickSort e a Busca Binária de forma simples. Veja como a eficiência de um algoritmo afeta diretamente a performance dos sistemas modernos.
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#artigos"
+                            class="button button-primary">
+
+                            Explorar artigos →
+
+                        </a>
+
+
+                        <a
+                            href="#categorias"
+                            class="button button-outline">
+
+                            Ver categorias
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-numbers">
+
+                        <div>
+
+                            <strong>150+</strong>
+
+                            <span>
+                                Artigos
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>32</strong>
+
+                            <span>
+                                Categorias
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>48K</strong>
+
+                            <span>
+                                Leitores
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- VISUAL -->
+
+                <div class="tech-visual">
+
+                    <div class="grid-background"></div>
+
+                    <div class="orbit orbit-one"></div>
+
+                    <div class="orbit orbit-two"></div>
+
+
+                    <div class="core">
+
+                        <div class="core-inner">
+                            &lt;/&gt;
+                        </div>
+
+                    </div>
+
+
+                    <div class="floating-tech tech-ai">
+
+                        <span>AI</span>
+
+                        <strong>
+                            Inteligência Artificial
+                        </strong>
+
+                    </div>
+
+
+                    <div class="floating-tech tech-code">
+
+                        <span>{ }</span>
+
+                        <strong>
+                            Programação
+                        </strong>
+
+                    </div>
+
+
+                    <div class="floating-tech tech-cloud">
+
+                        <span>☁</span>
+
+                        <strong>
+                            Cloud
+                        </strong>
+
+                    </div>
+
+
+                    <div class="floating-tech tech-data">
+
+                        <span>◈</span>
+
+                        <strong>
+                            Big Data
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- CATEGORIAS -->
+
+        <section class="category-bar">
+
+            <div class="container category-scroll">
+
+                <a class="category active"
+                    href="#artigos">
+                    Todos
+                </a>
+
+                <a class="category"
+                    href="#artigos">
+                    Inteligência Artificial
+                </a>
+
+                <a class="category"
+                    href="#artigos">
+                    Programação
+                </a>
+
+                <a class="category"
+                    href="#artigos">
+                    Segurança
+                </a>
+
+                <a class="category"
+                    href="#artigos">
+                    Hardware
+                </a>
+
+                <a class="category"
+                    href="#artigos">
+                    Cloud
+                </a>
+
+                <a class="category"
+                    href="#artigos">
+                    Inovação
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DESTAQUE -->
+
+        <section class="section" id="artigos">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            DESTAQUE
+                        </span>
+
+                        <h2>
+                            O que está acontecendo
+                            no mundo da tecnologia?
+                        </h2>
+
+                    </div>
+
+
+                    <p>
+
+                        Uma seleção dos assuntos mais
+                        importantes para entender as
+                        transformações tecnológicas.
+
                     </p>
-                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
-                </div>
-            </article>
 
-            <!-- Artigo 3 -->
-            <article class="card" data-category="ia">
-                <div class="card-tag">Inteligência Artificial</div>
-                <div class="card-content">
-                    <h2>Como funcionam as Redes Neurais na prática?</h2>
-                    <p class="meta">Publicado em 15 de Agosto, 2026 • 8 min de leitura</p>
-                    <p class="description">
-                        Uma introdução acessível sobre como máquinas aprendem a reconhecer padrões utilizando camadas de neurônios artificiais e retropropagação (backpropagation).
+                </div>
+
+
+                <article class="featured-card">
+
+
+                    <div class="featured-image">
+
+                        <span class="image-label">
+                            INTELIGÊNCIA ARTIFICIAL
+                        </span>
+
+
+                        <div class="ai-visual">
+
+                            <div class="ai-circle"></div>
+
+                            <div class="ai-node node-1"></div>
+
+                            <div class="ai-node node-2"></div>
+
+                            <div class="ai-node node-3"></div>
+
+                            <div class="ai-node node-4"></div>
+
+                            <div class="ai-node node-5"></div>
+
+                            <div class="ai-text">
+                                AI
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="featured-content">
+
+                        <div class="article-meta">
+                            26 AGO 2026
+                            •
+                            12 MIN DE LEITURA
+                        </div>
+
+
+                        <h3>
+
+                            Inteligência Artificial:
+                            como essa tecnologia está
+                            transformando nossas vidas
+
+                        </h3>
+
+
+                        <p>
+
+                            A inteligência artificial deixou
+                            de ser apenas um conceito futurista.
+                            Hoje ela está presente em mecanismos
+                            de busca, aplicativos, ferramentas
+                            de programação e sistemas empresariais.
+
+                        </p>
+
+
+                        <p>
+
+                            Mas como essa tecnologia funciona?
+                            Quais são suas possibilidades?
+                            E quais desafios precisamos considerar
+                            enquanto ela continua evoluindo?
+
+                        </p>
+
+
+                        <a href="#" class="read-more">
+                            Continuar lendo →
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ARTIGOS -->
+
+        <section class="section articles">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            CONTEÚDO
+                        </span>
+
+                        <h2>
+                            Artigos recentes
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="articles-grid">
+
+
+                    <!-- 1 -->
+
+                    <article class="article-card">
+
+                        <div class="article-cover cover-blue">
+
+                            <span class="cover-category">
+                                PROGRAMAÇÃO
+                            </span>
+
+                            <div class="cover-code">
+                                &lt;code/&gt;
+                            </div>
+
+                            <span class="cover-symbol">
+                                JS
+                            </span>
+
+                        </div>
+
+
+                        <div class="article-body">
+
+                            <div class="article-meta">
+                                24 AGO 2026 • 8 MIN
+                            </div>
+
+                            <h3>
+                                JavaScript moderno:
+                                recursos que todo desenvolvedor
+                                deveria conhecer
+                            </h3>
+
+                            <p>
+                                Conheça recursos modernos da linguagem
+                                que podem deixar seus projetos mais
+                                organizados e fáceis de manter.
+                            </p>
+
+                            <a href="#">
+                                Ler artigo →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- 2 -->
+
+                    <article class="article-card">
+
+                        <div class="article-cover cover-purple">
+
+                            <span class="cover-category">
+                                COMPUTAÇÃO
+                            </span>
+
+                            <div class="chip">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                            </div>
+
+                            <span class="cover-symbol">
+                                CPU
+                            </span>
+
+                        </div>
+
+
+                        <div class="article-body">
+
+                            <div class="article-meta">
+                                22 AGO 2026 • 10 MIN
+                            </div>
+
+                            <h3>
+                                Como os processadores modernos
+                                conseguem executar bilhões de operações
+                            </h3>
+
+                            <p>
+                                Entenda como CPU, núcleos, threads,
+                                cache e arquitetura trabalham juntos.
+                            </p>
+
+                            <a href="#">
+                                Ler artigo →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- 3 -->
+
+                    <article class="article-card">
+
+                        <div class="article-cover cover-green">
+
+                            <span class="cover-category">
+                                SEGURANÇA
+                            </span>
+
+                            <div class="big-icon">
+                                ◇
+                            </div>
+
+                            <span class="cover-symbol">
+                                SEC
+                            </span>
+
+                        </div>
+
+
+                        <div class="article-body">
+
+                            <div class="article-meta">
+                                20 AGO 2026 • 7 MIN
+                            </div>
+
+                            <h3>
+                                Segurança digital:
+                                hábitos que protegem seus dados
+                            </h3>
+
+                            <p>
+                                Senhas, autenticação, atualizações
+                                e comportamento digital fazem parte
+                                de uma estratégia de segurança.
+                            </p>
+
+                            <a href="#">
+                                Ler artigo →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- 4 -->
+
+                    <article class="article-card">
+
+                        <div class="article-cover cover-orange">
+
+                            <span class="cover-category">
+                                HARDWARE
+                            </span>
+
+                            <div class="big-icon">
+                                ⚡
+                            </div>
+
+                            <span class="cover-symbol">
+                                GPU
+                            </span>
+
+                        </div>
+
+
+                        <div class="article-body">
+
+                            <div class="article-meta">
+                                18 AGO 2026 • 9 MIN
+                            </div>
+
+                            <h3>
+                                GPU: por que as placas gráficas
+                                são tão importantes para a IA?
+                            </h3>
+
+                            <p>
+                                Descubra por que o processamento
+                                paralelo transformou as GPUs.
+                            </p>
+
+                            <a href="#">
+                                Ler artigo →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- 5 -->
+
+                    <article class="article-card">
+
+                        <div class="article-cover cover-cyan">
+
+                            <span class="cover-category">
+                                CLOUD
+                            </span>
+
+                            <div class="big-icon">
+                                ☁
+                            </div>
+
+                            <span class="cover-symbol">
+                                CLOUD
+                            </span>
+
+                        </div>
+
+
+                        <div class="article-body">
+
+                            <div class="article-meta">
+                                16 AGO 2026 • 11 MIN
+                            </div>
+
+                            <h3>
+                                Computação em nuvem:
+                                o que realmente acontece?
+                            </h3>
+
+                            <p>
+                                Servidores, armazenamento, redes
+                                e serviços trabalham juntos para
+                                entregar aplicações pela internet.
+                            </p>
+
+                            <a href="#">
+                                Ler artigo →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- 6 -->
+
+                    <article class="article-card">
+
+                        <div class="article-cover cover-pink">
+
+                            <span class="cover-category">
+                                INOVAÇÃO
+                            </span>
+
+                            <div class="big-icon">
+                                ◎
+                            </div>
+
+                            <span class="cover-symbol">
+                                FUTURE
+                            </span>
+
+                        </div>
+
+
+                        <div class="article-body">
+
+                            <div class="article-meta">
+                                14 AGO 2026 • 6 MIN
+                            </div>
+
+                            <h3>
+                                As tecnologias que podem definir
+                                a próxima década
+                            </h3>
+
+                            <p>
+                                IA, robótica, computação quântica
+                                e novas formas de interação estão
+                                abrindo caminhos para o futuro.
+                            </p>
+
+                            <a href="#">
+                                Ler artigo →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TENDÊNCIAS -->
+
+        <section class="section trends"
+            id="tendencias">
+
+            <div class="container">
+
+                <div class="section-heading centered">
+
+                    <span class="section-label">
+                        AGORA
+                    </span>
+
+                    <h2>
+                        Tendências tecnológicas
+                    </h2>
+
+                    <p>
+                        Alguns dos temas que estão recebendo
+                        mais atenção no ecossistema tecnológico.
                     </p>
-                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
-                </div>
-            </article>
 
-            <!-- Artigo 4 -->
-            <article class="card" data-category="programacao">
-                <div class="card-tag">Programação</div>
-                <div class="card-content">
-                    <h2>Diferença entre Compiladores e Interpretadores</h2>
-                    <p class="meta">Publicado em 10 de Agosto, 2026 • 4 min de leitura</p>
-                    <p class="description">
-                        Linguagens como C++ usam compiladores, enquanto Python e JavaScript usam interpretadores. Descubra as vantagens e desvantagens de cada abordagem.
+                </div>
+
+
+                <div class="trend-grid">
+
+
+                    <div class="trend-card">
+
+                        <span class="trend-number">
+                            01
+                        </span>
+
+                        <div class="trend-icon">
+                            AI
+                        </div>
+
+                        <h3>
+                            Inteligência Artificial
+                        </h3>
+
+                        <p>
+                            Modelos generativos, agentes de IA,
+                            automação e aplicações inteligentes.
+                        </p>
+
+                        <div class="trend-bar">
+                            <span data-width="94%"></span>
+                        </div>
+
+                        <small>
+                            Alta relevância
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="trend-card">
+
+                        <span class="trend-number">
+                            02
+                        </span>
+
+                        <div class="trend-icon">
+                            Q
+                        </div>
+
+                        <h3>
+                            Computação Quântica
+                        </h3>
+
+                        <p>
+                            Novos paradigmas computacionais
+                            baseados em propriedades quânticas.
+                        </p>
+
+                        <div class="trend-bar">
+                            <span data-width="65%"></span>
+                        </div>
+
+                        <small>
+                            Em crescimento
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="trend-card">
+
+                        <span class="trend-number">
+                            03
+                        </span>
+
+                        <div class="trend-icon">
+                            XR
+                        </div>
+
+                        <h3>
+                            Realidade Estendida
+                        </h3>
+
+                        <p>
+                            Tecnologias que combinam experiências
+                            virtuais, aumentadas e ambientes físicos.
+                        </p>
+
+                        <div class="trend-bar">
+                            <span data-width="72%"></span>
+                        </div>
+
+                        <small>
+                            Em crescimento
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="trend-card">
+
+                        <span class="trend-number">
+                            04
+                        </span>
+
+                        <div class="trend-icon">
+                            R
+                        </div>
+
+                        <h3>
+                            Robótica
+                        </h3>
+
+                        <p>
+                            Máquinas inteligentes ganhando espaço
+                            em indústria, pesquisa e serviços.
+                        </p>
+
+                        <div class="trend-bar">
+                            <span data-width="79%"></span>
+                        </div>
+
+                        <small>
+                            Alta relevância
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- CATEGORIAS -->
+
+        <section class="section"
+            id="categorias">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            EXPLORE
+                        </span>
+
+                        <h2>
+                            Encontre seu próximo assunto
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Explore diferentes áreas da tecnologia
+                        e encontre conteúdos para aprender.
                     </p>
-                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
-                </div>
-            </article>
 
-        </div>
+                </div>
+
+
+                <div class="category-cards">
+
+
+                    <a href="#" class="big-category cat-ai">
+
+                        <span>01</span>
+
+                        <div>
+
+                            <strong>
+                                Inteligência Artificial
+                            </strong>
+
+                            <small>
+                                34 artigos
+                            </small>
+
+                        </div>
+
+                        <b>→</b>
+
+                    </a>
+
+
+
+                    <a href="#" class="big-category cat-code">
+
+                        <span>02</span>
+
+                        <div>
+
+                            <strong>
+                                Programação
+                            </strong>
+
+                            <small>
+                                42 artigos
+                            </small>
+
+                        </div>
+
+                        <b>→</b>
+
+                    </a>
+
+
+
+                    <a href="#" class="big-category cat-security">
+
+                        <span>03</span>
+
+                        <div>
+
+                            <strong>
+                                Segurança Digital
+                            </strong>
+
+                            <small>
+                                21 artigos
+                            </small>
+
+                        </div>
+
+                        <b>→</b>
+
+                    </a>
+
+
+
+                    <a href="#" class="big-category cat-hardware">
+
+                        <span>04</span>
+
+                        <div>
+
+                            <strong>
+                                Hardware
+                            </strong>
+
+                            <small>
+                                28 artigos
+                            </small>
+
+                        </div>
+
+                        <b>→</b>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SOBRE -->
+
+        <section class="section about"
+            id="sobre">
+
+            <div class="container about-grid">
+
+
+                <div class="about-visual">
+
+                    <div class="about-orbit"></div>
+
+                    <div class="about-logo">
+                        &lt;/&gt;
+                    </div>
+
+                    <div class="about-badge badge-one">
+                        AI
+                    </div>
+
+                    <div class="about-badge badge-two">
+                        WEB
+                    </div>
+
+                    <div class="about-badge badge-three">
+                        01
+                    </div>
+
+                </div>
+
+
+                <div class="about-content">
+
+                    <span class="section-label">
+                        SOBRE O TECHNOVA
+                    </span>
+
+                    <h2>
+
+                        Tecnologia explicada
+                        de forma
+                        <span>simples.</span>
+
+                    </h2>
+
+
+                    <p>
+                        Tecnologia está presente em praticamente
+                        todos os aspectos da nossa vida. Entretanto,
+                        muitos conceitos continuam parecendo complicados.
+                    </p>
+
+
+                    <p>
+                        O TechNova foi criado para transformar assuntos
+                        complexos em conteúdos claros, interessantes
+                        e úteis.
+                    </p>
+
+
+                    <div class="about-list">
+
+                        <div>
+                            <span>✓</span>
+                            <p>
+                                Conteúdo educativo e explicativo
+                            </p>
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            <p>
+                                Conceitos apresentados de forma simples
+                            </p>
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            <p>
+                                Programação e desenvolvimento
+                            </p>
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            <p>
+                                Futuro e inovação tecnológica
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- NEWSLETTER -->
+
+        <section class="newsletter">
+
+            <div class="container">
+
+                <div class="newsletter-box">
+
+
+                    <div>
+
+                        <span class="section-label">
+                            NEWSLETTER TECHNOVA
+                        </span>
+
+                        <h2>
+                            Fique por dentro
+                            da tecnologia.
+                        </h2>
+
+                        <p>
+                            Receba novos conteúdos, análises
+                            e explicações diretamente no seu e-mail.
+                        </p>
+
+                    </div>
+
+
+                    <form id="newsletterForm">
+
+                        <div class="newsletter-input">
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Digite seu melhor e-mail"
+                                required>
+
+                            <button type="submit">
+                                Inscrever
+                            </button>
+
+                        </div>
+
+                        <small id="formMessage"></small>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
 
-    <!-- Rodapé -->
-    <footer>
-        <div class="container footer-content" id="sobre">
-            <p>&copy; 2026 Tech & Code. Criado para entusiastas da tecnologia.</p>
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+
+            <div class="footer-brand">
+
+                <a href="#inicio" class="logo">
+
+                    <span class="logo-symbol">
+                        &lt;/&gt;
+                    </span>
+
+                    <span>
+                        Tech<span>Nova</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Informação e conhecimento para entender
+                    a tecnologia que está construindo o futuro.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>Explorar</h4>
+
+                <a href="#inicio">
+                    Início
+                </a>
+
+                <a href="#artigos">
+                    Artigos
+                </a>
+
+                <a href="#tendencias">
+                    Tendências
+                </a>
+
+                <a href="#categorias">
+                    Categorias
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Temas</h4>
+
+                <a href="#">
+                    Inteligência Artificial
+                </a>
+
+                <a href="#">
+                    Programação
+                </a>
+
+                <a href="#">
+                    Segurança
+                </a>
+
+                <a href="#">
+                    Hardware
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>Redes</h4>
+
+                <a href="#">
+                    GitHub
+                </a>
+
+                <a href="#">
+                    LinkedIn
+                </a>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    YouTube
+                </a>
+
+            </div>
+
         </div>
+
+
+        <div class="container footer-bottom">
+
+            <span>
+                © <span id="year"></span>
+                TechNova.
+                Todos os direitos reservados.
+            </span>
+
+            <span>
+                Tecnologia • Inovação • Futuro
+            </span>
+
+        </div>
+
     </footer>
 
-    <script>
-        // Alternar Tema (Escuro / Claro)
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const currentTheme = localStorage.getItem('theme');
 
-        if (currentTheme) {
-            document.documentElement.setAttribute('data-theme', currentTheme);
-            if (currentTheme === 'light') {
-                themeToggleBtn.textContent = '☀️';
+
+    <!-- BOTÃO TOPO -->
+
+    <button
+        class="top-button"
+        id="topButton"
+        aria-label="Voltar ao topo">
+
+        ↑
+
+    </button>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =================================================
+           MENU MOBILE
+        ================================================= */
+
+        const mobileButton =
+            document.getElementById(
+                "mobileButton"
+            );
+
+        const navMenu =
+            document.getElementById(
+                "navMenu"
+            );
+
+
+        mobileButton.addEventListener(
+            "click",
+            () => {
+
+                navMenu.classList.toggle(
+                    "open"
+                );
+
+                const aberto =
+                    navMenu.classList.contains(
+                        "open"
+                    );
+
+                mobileButton.textContent =
+                    aberto ? "✕" : "☰";
+
             }
+        );
+
+
+        document
+            .querySelectorAll(".nav-menu a")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        navMenu.classList.remove(
+                            "open"
+                        );
+
+                        mobileButton.textContent =
+                            "☰";
+
+                    }
+                );
+
+            });
+
+
+
+        /* =================================================
+           TEMA
+        ================================================= */
+
+        const themeButton =
+            document.getElementById(
+                "themeButton"
+            );
+
+
+        const temaSalvo =
+            localStorage.getItem(
+                "technova-theme"
+            );
+
+
+        if (temaSalvo === "light") {
+
+            document.body.classList.add(
+                "light"
+            );
+
+            themeButton.textContent = "☀";
+
         }
 
-        themeToggleBtn.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            
-            if (theme === 'light') {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'dark');
-                themeToggleBtn.textContent = '🌙';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                themeToggleBtn.textContent = '☀️';
+
+        themeButton.addEventListener(
+            "click",
+            () => {
+
+                document.body.classList.toggle(
+                    "light"
+                );
+
+                const claro =
+                    document.body.classList.contains(
+                        "light"
+                    );
+
+                themeButton.textContent =
+                    claro ? "☀" : "☾";
+
+                localStorage.setItem(
+                    "technova-theme",
+                    claro
+                        ? "light"
+                        : "dark"
+                );
+
             }
-        });
+        );
 
-        // Filtro de Categorias
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.card');
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remover classe ativa de todos os botões
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
 
-                const category = button.getAttribute('data-category');
+        /* =================================================
+           BOTÃO VOLTAR AO TOPO
+        ================================================= */
 
-                cards.forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+        const topButton =
+            document.getElementById(
+                "topButton"
+            );
+
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                if (window.scrollY > 500) {
+
+                    topButton.classList.add(
+                        "show"
+                    );
+
+                } else {
+
+                    topButton.classList.remove(
+                        "show"
+                    );
+
+                }
+
+            }
+        );
+
+
+        topButton.addEventListener(
+            "click",
+            () => {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
                 });
-            });
-        });
+
+            }
+        );
+
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        const header =
+            document.getElementById(
+                "header"
+            );
+
+
+        window.addEventListener(
+            "scroll",
+            () => {
+
+                if (window.scrollY > 40) {
+
+                    header.style.boxShadow =
+                        "0 10px 40px rgba(0,0,0,.2)";
+
+                } else {
+
+                    header.style.boxShadow =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+
+        /* =================================================
+           ANIMAÇÃO DOS CARDS
+        ================================================= */
+
+        const revealElements =
+            document.querySelectorAll(
+                ".article-card, .trend-card"
+            );
+
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: .12
+                }
+            );
+
+
+        revealElements.forEach(
+            element => {
+
+                observer.observe(
+                    element
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           BARRAS DE TENDÊNCIA
+        ================================================= */
+
+        const trendBars =
+            document.querySelectorAll(
+                ".trend-bar span"
+            );
+
+
+        const trendObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                const largura =
+                                    entry.target
+                                    .dataset
+                                    .width;
+
+
+                                entry.target.style.width =
+                                    largura;
+
+
+                                trendObserver.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: .5
+                }
+            );
+
+
+        trendBars.forEach(
+            bar => {
+
+                trendObserver.observe(
+                    bar
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           NEWSLETTER
+        ================================================= */
+
+        const newsletterForm =
+            document.getElementById(
+                "newsletterForm"
+            );
+
+        const email =
+            document.getElementById(
+                "email"
+            );
+
+        const formMessage =
+            document.getElementById(
+                "formMessage"
+            );
+
+
+        newsletterForm.addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                if (
+                    !email.value.trim()
+                ) {
+
+                    formMessage.textContent =
+                        "Digite um e-mail válido.";
+
+                    formMessage.style.color =
+                        "#fb7185";
+
+                    return;
+
+                }
+
+
+                formMessage.textContent =
+                    "✓ Inscrição realizada com sucesso!";
+
+                formMessage.style.color =
+                    "#34d399";
+
+
+                email.value = "";
+
+            }
+        );
+
+
+
+        /* =================================================
+           EFEITO DE MOVIMENTO DO HERO
+        ================================================= */
+
+        const visual =
+            document.querySelector(
+                ".tech-visual"
+            );
+
+
+        window.addEventListener(
+            "mousemove",
+            event => {
+
+                if (!visual) return;
+
+
+                const x =
+                    (
+                        event.clientX -
+                        window.innerWidth / 2
+                    ) / 100;
+
+
+                const y =
+                    (
+                        event.clientY -
+                        window.innerHeight / 2
+                    ) / 100;
+
+
+                visual.style.transform =
+                    `translate(${x}px, ${y}px)`;
+
+            }
+        );
+
+
+
+        /* =================================================
+           CATEGORIAS
+        ================================================= */
+
+        const categories =
+            document.querySelectorAll(
+                ".category"
+            );
+
+
+        categories.forEach(
+            category => {
+
+                category.addEventListener(
+                    "click",
+                    () => {
+
+                        categories.forEach(
+                            item => {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        category.classList.add(
+                            "active"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           ANO AUTOMÁTICO
+        ================================================= */
+
+        document.getElementById(
+            "year"
+        ).textContent =
+            new Date().getFullYear();
+
     </script>
+
 </body>
+
 </html>
