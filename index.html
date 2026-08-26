@@ -1,1 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech & Code - Blog de Tecnologia e Programação</title>
+    <!-- Fonte Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Variáveis de Estilo (Tema Escuro por Padrão) */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary-color: #38bdf8;
+            --primary-hover: #0284c7;
+            --border-color: #334155;
+            --font-main: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
 
+        /* Tema Claro */
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #0f172a;
+            --text-muted: #64748b;
+            --primary-color: #0284c7;
+            --primary-hover: #0369a1;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-color);
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-code);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--text-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        #theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 40px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Filtros */
+        .categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
+        /* Grid de Posts */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.2s ease;
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .card-content h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .read-more:hover {
+            color: var(--primary-hover);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">&lt;Tech<span>&amp;Code/&gt;</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#posts">Artigos</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><button id="theme-toggle" aria-label="Alternar Tema">🌙</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Principal (Hero) -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Desvendando o Universo do Código e da Tecnologia</h1>
+            <p>Artigos, tutoriais e curiosidades sobre o mundo do desenvolvimento de software.</p>
+        </div>
+    </section>
+
+    <!-- Filtros de Categoria -->
+    <section class="categories container">
+        <button class="filter-btn active" data-category="all">Todos</button>
+        <button class="filter-btn" data-category="programacao">Programação</button>
+        <button class="filter-btn" data-category="curiosidades">Curiosidades</button>
+        <button class="filter-btn" data-category="ia">Inteligência Artificial</button>
+    </section>
+
+    <!-- Grid de Artigos -->
+    <main class="container" id="posts">
+        <div class="posts-grid">
+
+            <!-- Artigo 1 -->
+            <article class="card" data-category="curiosidades">
+                <div class="card-tag">Curiosidades</div>
+                <div class="card-content">
+                    <h2>Por que o primeiro erro de computador foi um inseto de verdade?</h2>
+                    <p class="meta">Publicado em 24 de Agosto, 2026 • 3 min de leitura</p>
+                    <p class="description">
+                        Em 1947, a almirante e programadora Grace Hopper encontrou uma mariposa presa nos retransmissores do computador Harvard Mark II. O termo "bug" já existia, mas este evento oficializou o termo na computação.
+                    </p>
+                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
+                </div>
+            </article>
+
+            <!-- Artigo 2 -->
+            <article class="card" data-category="programacao">
+                <div class="card-tag">Programação</div>
+                <div class="card-content">
+                    <h2>O que são Algoritmos de Busca e Ordenação?</h2>
+                    <p class="meta">Publicado em 20 de Agosto, 2026 • 6 min de leitura</p>
+                    <p class="description">
+                        Entenda como funciona o QuickSort e a Busca Binária de forma simples. Veja como a eficiência de um algoritmo afeta diretamente a performance dos sistemas modernos.
+                    </p>
+                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
+                </div>
+            </article>
+
+            <!-- Artigo 3 -->
+            <article class="card" data-category="ia">
+                <div class="card-tag">Inteligência Artificial</div>
+                <div class="card-content">
+                    <h2>Como funcionam as Redes Neurais na prática?</h2>
+                    <p class="meta">Publicado em 15 de Agosto, 2026 • 8 min de leitura</p>
+                    <p class="description">
+                        Uma introdução acessível sobre como máquinas aprendem a reconhecer padrões utilizando camadas de neurônios artificiais e retropropagação (backpropagation).
+                    </p>
+                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
+                </div>
+            </article>
+
+            <!-- Artigo 4 -->
+            <article class="card" data-category="programacao">
+                <div class="card-tag">Programação</div>
+                <div class="card-content">
+                    <h2>Diferença entre Compiladores e Interpretadores</h2>
+                    <p class="meta">Publicado em 10 de Agosto, 2026 • 4 min de leitura</p>
+                    <p class="description">
+                        Linguagens como C++ usam compiladores, enquanto Python e JavaScript usam interpretadores. Descubra as vantagens e desvantagens de cada abordagem.
+                    </p>
+                    <a href="#" class="read-more">Ler artigo completo &rarr;</a>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container footer-content" id="sobre">
+            <p>&copy; 2026 Tech & Code. Criado para entusiastas da tecnologia.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Alternar Tema (Escuro / Claro)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'light') {
+                themeToggleBtn.textContent = '☀️';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            
+            if (theme === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.textContent = '☀️';
+            }
+        });
+
+        // Filtro de Categorias
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remover classe ativa de todos os botões
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const category = button.getAttribute('data-category');
+
+                cards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
